@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "prisma generate && tsc",
+    "lint": "eslint src --ext .ts --fix",
+    "test": "jest --detectOpenHandles"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.4.2",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.0.0",
+    "@rocketseat/eslint-config": "^2.1.0",
+    "dotenv": "^16.3.1",
+    "fastify": "^4.20.0",
+    "mongoose": "^7.4.0",
+    "prisma": "^5.0.0",
+    "tsx": "^3.12.7",
+    "zod": "^3.21.4"
+  }
+}

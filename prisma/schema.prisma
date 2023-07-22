@@ -17,3 +17,12 @@ model user {
   avatar   String
   password String
 }
+
+model coins {
+  id                      String @id @default(auto()) @map("_id") @db.ObjectId
+  name                    String @unique
+  icon                    String
+  priceUsd                Float
+  priceBrl                Float
+  brlRateChangePercentage Float
+}

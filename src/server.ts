@@ -2,7 +2,9 @@ import console from 'console'
 import 'dotenv/config'
 import fastify from 'fastify'
 import mongoose from 'mongoose'
+import userRoutes from './routes/userRouter'
 const app = fastify()
+app.register(userRoutes, { prefix: '/user' })
 mongoose
   .connect(String(process.env.DATABASE_URL))
   .then(() => {

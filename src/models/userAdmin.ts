@@ -3,7 +3,7 @@ import { z } from 'zod'
 const UserSchema = z.object({
   name: z.string(),
   email: z.string().email(),
-  password: z.string(),
+  password: z.string().min(6).max(20),
   avatar: z.string().url(),
 })
 

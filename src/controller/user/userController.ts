@@ -9,28 +9,6 @@ async function Registeruser(req: FastifyRequest, reply: FastifyReply) {
     if (existingUser) {
       return reply.status(400).send({ message: 'Email already exists' })
     }
-    const handleMissingFields = (missingFields: any) => {
-      if (missingFields.length > 0) {
-        return reply.status(400).send({
-          status: 400,
-          message: `Campo${
-            missingFields.length > 1 ? 's' : ''
-          } ${missingFields.join(', ')} está${
-            missingFields.length > 1 ? 'm' : ''
-          } vazio${missingFields.length > 1 ? 's' : ''}`,
-        })
-      }
-    }
-
-    const requiredFields = ['name', 'email', 'password', 'avatar']
-    const missingFields = requiredFields.filter((field) => !req.body[field])
-
-    // Verificar se existem campos ausentes
-    const validationError = handleMissingFields(missingFields)
-    if (validationError) {
-      return reply.statusCode
-    }
-
     const user = await prisma.user.create({
       data: {
         name,
@@ -41,8 +19,7 @@ async function Registeruser(req: FastifyRequest, reply: FastifyReply) {
     })
     reply.status(200).send({ message: 'User registered successfully', user })
   } catch (error) {
-    console.error(error)
-    reply.status(400).send({ message: error })
+    reply.status(400).send({ message: error.issues[0].message })
   }
 }
 export { Registeruser }

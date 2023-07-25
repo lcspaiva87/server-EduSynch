@@ -26,3 +26,8 @@ model coins {
   priceBrl                Float
   brlRateChangePercentage Float
 }
+
+model newsletter {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  email String @unique
+}

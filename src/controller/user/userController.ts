@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
-import { UserLogin, UserSchema } from '../../models/userAdmin'
+import { UserLogin, UserSchema, UserNewsletter } from '../../models/userAdmin'
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 
@@ -53,4 +53,14 @@ async function LoginUser(
     reply.status(500).send({ message: 'Internal server error', error })
   }
 }
-export { Registeruser, LoginUser }
+async function Newsletter(req: FastifyRequest, reply: FastifyReply) {
+  const { email } = UserNewsletter.parse(req.body)
+
+  const user = await prisma.newsletter.create({
+    data: {
+      email,
+    },
+  })
+  reply.status(200).send({ message: 'email registrado com sucesso' })
+}
+export { Registeruser, LoginUser, Newsletter }

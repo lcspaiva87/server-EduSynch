@@ -11,4 +11,7 @@ const UserLogin = z.object({
   email: z.string().email(),
   password: z.string().min(6).max(20),
 })
-export { UserSchema, UserLogin }
+const UserNewsletter = z.object({
+  email: z.string().email(),
+})
+export { UserSchema, UserLogin, UserNewsletter }

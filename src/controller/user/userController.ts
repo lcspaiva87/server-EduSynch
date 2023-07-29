@@ -18,12 +18,13 @@ async function Registeruser(req: FastifyRequest, reply: FastifyReply) {
         name,
         email,
         password: hashedPassword,
-        avatar,
+        avatar:
+          'https://ogimg.infoglobo.com.br/in/24907109-c86-bcf/FT1086A/avatar-a-lenda-de-aang.jpg',
       },
     })
     reply.status(200).send({ message: 'User registered successfully', user })
   } catch (error: any) {
-    reply.status(400).send({ message: error.issues[0].message })
+    reply.status(400).send({ message: error })
   }
 }
 async function LoginUser(req: FastifyRequest, reply: FastifyReply) {
@@ -41,8 +42,11 @@ async function LoginUser(req: FastifyRequest, reply: FastifyReply) {
     if (!isPasswordValid) {
       return reply.status(401).send({ message: 'Invalid credentials' })
     }
-    // Gera um token de autenticação usando @fastify/jwt
-    const token = await reply.jwtSign({ userId: user.id })
+    const token = await reply.jwtSign({
+      userId: user.id,
+      name: user.name,
+      avatarUrl: user.avatar,
+    })
     reply.status(200).send({ token })
   } catch (error) {
     reply.status(500).send({ message: 'Internal server error', error })

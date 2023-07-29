@@ -1,5 +1,5 @@
-import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
-import { UserLogin, UserSchema, UserNewsletter } from '../../models/userAdmin'
+import { FastifyReply, FastifyRequest } from 'fastify'
+import { UserLogin, UserSchema } from '../../models/userAdmin'
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 
@@ -22,15 +22,11 @@ async function Registeruser(req: FastifyRequest, reply: FastifyReply) {
       },
     })
     reply.status(200).send({ message: 'User registered successfully', user })
-  } catch (error) {
+  } catch (error: any) {
     reply.status(400).send({ message: error.issues[0].message })
   }
 }
-async function LoginUser(
-  req: FastifyRequest,
-  reply: FastifyReply,
-  app: FastifyInstance,
-) {
+async function LoginUser(req: FastifyRequest, reply: FastifyReply) {
   try {
     const { email, password } = UserLogin.parse(req.body)
 
@@ -47,20 +43,10 @@ async function LoginUser(
     }
     // Gera um token de autenticação usando @fastify/jwt
     const token = await reply.jwtSign({ userId: user.id })
-    console.log(token)
     reply.status(200).send({ token })
   } catch (error) {
     reply.status(500).send({ message: 'Internal server error', error })
   }
 }
-async function Newsletter(req: FastifyRequest, reply: FastifyReply) {
-  const { email } = UserNewsletter.parse(req.body)
 
-  const user = await prisma.newsletter.create({
-    data: {
-      email,
-    },
-  })
-  reply.status(200).send({ message: 'email registrado com sucesso' })
-}
-export { Registeruser, LoginUser, Newsletter }
+export { Registeruser, LoginUser }

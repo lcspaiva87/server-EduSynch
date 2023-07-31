@@ -10,21 +10,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
+model User {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
   name     String
-  email    String @unique
-  avatar   String @default("https://ogimg.infoglobo.com.br/in/24907109-c86-bcf/FT1086A/avatar-a-lenda-de-aang.jpg")
+  email    String  @unique
+  avatar   String  @default("https://ogimg.infoglobo.com.br/in/24907109-c86-bcf/FT1086A/avatar-a-lenda-de-aang.jpg")
   password String
+  terms    Boolean @default(false)
+  coins    Coins[]
+  Trade    Trade[]
 }
 
-model coins {
-  id                      String @id @default(auto()) @map("_id") @db.ObjectId
-  name                    String @unique
-  icon                    String
-  priceUsd                Float
-  priceBrl                Float
-  brlRateChangePercentage Float
+model Coins {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  name       String @unique
+  icon       String
+  priceUsd   Float
+  percentage Float
+  amount     Float
+  userId     String @db.ObjectId
+  user       User   @relation(fields: [userId], references: [id])
+  acronym    String
+}
+
+model Trade {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String   @db.ObjectId
+  type_trade   String
+  nameCoin     String
+  idCoin       String
+  create_trade DateTime
+  amount       Float
+  user         User     @relation(fields: [userId], references: [id])
 }
 
 model newsletter {

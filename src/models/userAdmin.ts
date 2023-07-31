@@ -4,6 +4,7 @@ const UserSchema = z.object({
   name: z.string().nonempty(),
   email: z.string().email(),
   password: z.string().min(6).max(20),
+  terms: z.boolean(),
   avatar: z
     .string()
     .url()

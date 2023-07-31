@@ -14,7 +14,7 @@ model User {
   id       String  @id @default(auto()) @map("_id") @db.ObjectId
   name     String
   email    String  @unique
-  avatar   String  @default("https://ogimg.infoglobo.com.br/in/24907109-c86-bcf/FT1086A/avatar-a-lenda-de-aang.jpg")
+  avatar   String  @default("https://www.patasdacasa.com.br/sites/patasdacasa/files/styles/webp/public/2023-05/Gato-surdo1.jpg.webp?itok=ppfgdxES")
   password String
   terms    Boolean @default(false)
   coins    Coins[]

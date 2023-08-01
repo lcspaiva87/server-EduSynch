@@ -14,7 +14,8 @@
 ## api documentation
 https://nodejs-server-server-generated.vercel.app/docs/
 
-
+##database diagram
+<img src="https://github.com/lcspaiva87/server-EduSynch/blob/main/diagragrama_server.png" alt="database diagram"/> 
 ## How to make it work on your machine
 
 ```sh
